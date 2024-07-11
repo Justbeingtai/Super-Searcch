@@ -1,0 +1,16 @@
+function createHeroImageCard(hero){
+
+
+
+}
+
+
+function createHeroBioCard(hero){
+
+
+}
+
+function createHeroComicCard(hero){
+
+
+}
