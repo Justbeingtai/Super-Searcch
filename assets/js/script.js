@@ -2,7 +2,8 @@ const heroHeaderEl = $('#hero-header');
 const heroBioEl = $('#hero-bio');
 const heroImgEl = $('#hero-img');
 const heroComicEl = $('#hero-comic');
-
+const wikiListEl = $('#wiki-list');
+const maxWikiLength = 5;
 
 function createHeroCard(hero) {
 
@@ -36,4 +37,36 @@ function createHeroCard(hero) {
 
 }
 
+function createWikiCard(wiki) {
+
+    const wikiList = $('<ul>');
+
+    const wikiTitles = wiki[1];
+    const wikiDescrip = wiki[2];
+    const wikiLinks = wiki[3];
+    
+
+    if (wikiTitles.length > maxWikiLength) {
+        wikiTitles.splice(maxWikiLength);
+        wikiDescrip.splice(maxWikiLength);
+        wikiLinks.splice(maxWikiLength);
+    }
+
+    for(i = 0; i<maxWikiLength; i++){
+        let title = wikiTitles[i];
+        let descrip = wikiDescrip[i];
+        let link = wikiLinks[i];
+
+        const wikiWrapper = $('<ul>')
+        .append($('<li>').text(title))
+        .append($('<li>').text(descrip))
+        .append($('<a>').attr('href', link)
+                .text(link));
+
+        wikiList.append(wikiWrapper);
+    }
+
+    wikiListEl.append(wikiList);
+
+}
 
