@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url('/assets/images/marvel-chromebook-wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 1000px;
+    margin-left: 25%;
+    
+   
+    border-radius: 12px;
+}
+h1{
+    color: #8D0101;
+    text-align: center;
+    padding-top: 100px;
+    font-size: 50px;
+}
+input{
+    width: 45%;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+button{
+    height: 40px;
+    width: 70px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
