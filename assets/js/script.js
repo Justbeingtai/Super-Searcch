@@ -1,7 +1,7 @@
-const heroHeaderEl = $('hero-header');
-const heroBioEl = $('hero-bio');
-const heroImgEl = $('hero-img');
-const heroComicEl = $('hero-comic');
+const heroHeaderEl = $('#hero-header');
+const heroBioEl = $('#hero-bio');
+const heroImgEl = $('#hero-img');
+const heroComicEl = $('#hero-comic');
 
 
 function createHeroCard(hero) {
