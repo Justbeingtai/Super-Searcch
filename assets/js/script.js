@@ -4,6 +4,11 @@ const heroImgEl = $('#hero-img');
 const heroComicEl = $('#hero-comic');
 const wikiListEl = $('#wiki-list');
 const maxWikiLength = 5;
+const publicAPIKey = '7f8b25cc4998b208788b8ed0ee3ecfc3';
+const privateAPIKey = '47c3654c3694747e67461f8b148541ee58a6ba73';
+
+
+
 
 function createHeroCard(hero) {
 
@@ -70,6 +75,7 @@ function createWikiCard(wiki) {
 
 }
 
+
 function toggleMode() {
     const searchBox = document.querySelector('.search-box');
     const toggleButton = document.getElementById('toggle-button');
@@ -84,4 +90,5 @@ function toggleMode() {
         toggleButton.textContent = 'Switch to Villains';
     }
 }
+
 
