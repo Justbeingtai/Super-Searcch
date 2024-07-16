@@ -1,29 +1,49 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <title>Super Search Results</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css"
-    /> -->
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
-    <h1>Superhero Search</h1>
-    <div class="container">
-      <input id="hero-search" placeholder="Hero Search" />
-      <button id="go">Search</button>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/search.css" />
+</head>
+<body>
+    <header>
+        Super Search Results
+    </header>
+    <div class="search-box">
+        <div class="box-grid">
+            <div class="box">
+                <div id="hero-img">
+                    <img src="https://via.placeholder.com/150" alt="Hero Image Placeholder">
+                </div>
+                <div class="search-container">
+                    <form id="search-form" action="" class="search-form">
+                        <input type="text" placeholder="Search..." id="search-input">
+                        <button type="submit" id="go">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="box">
+                <div id="hero-bio">
+                    <h2>Biography</h2>
+                </div>
+            </div>
+            <div class="box">
+                <div id="wiki-list">
+                    <h2>Wikipedia Links</h2>
+                </div>
+            </div>
+            <div class="box">
+                <div id="hero-comic">
+                    <h2>Comic Appearances</h2>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="hero-header"></div>
-    <div id="hero-bio"></div>
-    <div id="hero-img"></div>
-    <div id="hero-comic"></div>
-    <div id="wiki-list"></div>
-  </body>
-  <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
 </html>
