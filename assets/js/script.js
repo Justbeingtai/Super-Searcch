@@ -75,17 +75,20 @@ function createWikiCard(wiki) {
 
 }
 
-function fetchMarvelSuperhero(event){
-    const timeStamp = event.timeStamp;
-    const hash = $.md5(timeStamp+''+privateAPIKey+''+publicAPIKey);
-    fetch(`https://gateway.marvel.com:443/v1/public/characters?name=iron%20man&ts=${timeStamp}&apikey=${publicAPIKey}&hash=${hash}`).then(response=>{
-        
-        return response.json();
-    })
-    .then(data =>{
-        console.log(data);
-    })
+
+function toggleMode() {
+    const searchBox = document.querySelector('.search-box');
+    const toggleButton = document.getElementById('toggle-button');
+
+    if (searchBox.classList.contains('hero')) {
+        searchBox.classList.remove('hero');
+        searchBox.classList.add('villain');
+        toggleButton.textContent = 'Switch to Heroes';
+    } else {
+        searchBox.classList.remove('villain');
+        searchBox.classList.add('hero');
+        toggleButton.textContent = 'Switch to Villains';
+    }
 }
 
 
-fetchMarvelSuperhero(this);

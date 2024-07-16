@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-
-
-
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <title>Super Search</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css"
-    /> -->
     <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
-    <h1>Super hero Search</h1>
-    <div class="container">
-        <input placeholder="Hero Search">
-        <button id="go">Search</button>
+</head>
+<body>
+
+    <div class="search-box hero">
+        <div class="search-container">
+            <form id="search-form" action="search.html" target="_blank" class="search-form">
+                <input type="text" placeholder="Search..." id="search-input">
+                <button type="submit" id="go">Search</button>
+            </form>
+        </div>
+        <button id="toggle-button" class="toggle-button" onclick="toggleMode()">Switch to Villains</button>
     </div>
 
     <footer>Data provided by Marvel. © 2014 Marvel</footer>
@@ -33,3 +31,4 @@
 
   <script src="./assets/js/script.js"></script>
 </html>
+
