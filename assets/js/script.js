@@ -55,6 +55,7 @@ function createWikiCard(wiki) {
 
 }
 
+
 function searchMarvelHero (searchInput){
 
     
@@ -111,6 +112,22 @@ function searchMarvelHero (searchInput){
     
     return;
     
+
+
+function toggleMode() {
+    const searchBox = document.querySelector('.search-box');
+    const toggleButton = document.getElementById('toggle-button');
+
+    if (searchBox.classList.contains('hero')) {
+        searchBox.classList.remove('hero');
+        searchBox.classList.add('villain');
+        toggleButton.textContent = 'Switch to Heroes';
+    } else {
+        searchBox.classList.remove('villain');
+        searchBox.classList.add('hero');
+        toggleButton.textContent = 'Switch to Villains';
+    }
+
 }
 
 function handleSearch(event){
@@ -121,4 +138,4 @@ function handleSearch(event){
 
 }
 
-submitEl.on('click', handleSearch);
+
