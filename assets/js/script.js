@@ -3,6 +3,10 @@ const heroBioEl = $('#hero-bio');
 const heroImgEl = $('#hero-img');
 const heroComicEl = $('#hero-comic');
 const wikiListEl = $('#wiki-list');
+const submitEl = $('#go');
+const searchInputEl = $('#search-input');
+
+
 const maxWikiLength = 5;
 const publicAPIKey = '7f8b25cc4998b208788b8ed0ee3ecfc3';
 const privateAPIKey = '47c3654c3694747e67461f8b148541ee58a6ba73';
@@ -14,31 +18,7 @@ function createHeroCard(hero) {
 
 
 
-    const heroHeader = $('<div>')
-        .addClass('')
-        .text(hero.name);
-    const heroBio = $('<div>')
-        .addClass('')
-        .text(hero.bio);
-    const heroImg = $('<img>')
-        .addClass('')
-        .attr('src', hero.img);
-    const heroComic = $('<ul>');
-
-    const heroComicList = hero.comics;
-
-    for (let comic of heroComicList) {
-        comicListItem = $('<li>')
-            .addClass('')
-            .text(comic.title);
-
-        heroComic.append(comicListItem);
-    }
-
-    heroHeaderEl.append(heroHeader);
-    heroBioEl.append(heroBio);
-    heroImgEl.append(heroImg);
-    heroComicEl.append(heroComicList);
+   
 
 }
 
@@ -66,7 +46,7 @@ function createWikiCard(wiki) {
         .append($('<li>').text(title))
         .append($('<li>').text(descrip))
         .append($('<a>').attr('href', link)
-                .text(link));
+                        .text(link));
 
         wikiList.append(wikiWrapper);
     }
@@ -75,17 +55,70 @@ function createWikiCard(wiki) {
 
 }
 
-function fetchMarvelSuperhero(event){
-    const timeStamp = event.timeStamp;
+function searchMarvelHero (searchInput){
+
+    
+
+    const timeStamp = this.timeStamp;
     const hash = $.md5(timeStamp+''+privateAPIKey+''+publicAPIKey);
-    fetch(`https://gateway.marvel.com:443/v1/public/characters?name=iron%20man&ts=${timeStamp}&apikey=${publicAPIKey}&hash=${hash}`).then(response=>{
+
+    
+
+    fetch(`https://gateway.marvel.com:443/v1/public/characters?name=${searchInput}&ts=${timeStamp}&apikey=${publicAPIKey}&hash=${hash}`)
+        .then(response=>{
         
-        return response.json();
-    })
-    .then(data =>{
-        console.log(data);
-    })
+            return response.json();
+        })
+        .then(data =>{
+            data.data["results"].forEach((hero) =>{
+                
+                
+              
+                    const heroHeader = $('<h2>')
+                    .addClass('')
+                    .text(hero.name);
+                const heroBio = $('<div>')
+                    .addClass('')
+                    .text(hero.description);
+                const heroImg = $('<img>')
+                    .addClass('')
+                    .attr('src', hero.thumbnail["path"]+"."+hero.thumbnail["extension"]);
+                const heroComic = $('<ul>');
+            
+                // const heroComicList = hero.comics.items;
+            
+                // for (let comic of heroComicList) {
+                //     comicListItem = $('<li>')
+                //         .addClass('')
+                //         .text(comic.name);
+            
+                //     heroComic.append(comicListItem);
+                // }
+              
+
+                heroHeaderEl.append(heroHeader);
+                heroBioEl.append(heroBio);
+                heroImgEl.append(heroImg);
+                heroComicEl.append(heroComicList);
+                }
+                // else{
+                //      hero = data.data["results"][0];
+                // }
+          
+
+
+        )})
+    
+    return;
+    
 }
 
+function handleSearch(event){
+    event.preventDefault();
+    const hero = searchMarvelHero(searchInputEl.val());
+    searchInputEl.text('');
+    createHeroCard(hero);
 
-fetchMarvelSuperhero(this);
+}
+
+submitEl.on('click', handleSearch);
