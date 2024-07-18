@@ -19,7 +19,6 @@ const privateAPIKey = '47c3654c3694747e67461f8b148541ee58a6ba73';
 function createWikiCard(wiki) {
 
 
-
     const wikiList = $('<ul>');
 
     const wikiTitles = wiki[1];
@@ -38,6 +37,7 @@ function createWikiCard(wiki) {
         let descrip = wikiDescrip[i];
         let link = wikiLinks[i];
 
+        wikiListEl.empty();
         const wikiWrapper = $('<ul>')
             .append($('<li>').text(title))
             .append($('<li>').text(descrip))
@@ -108,6 +108,7 @@ function searchMarvelHero(searchInput) {
             if (localStorage.getItem('hero-list') === null) {
                 let heroList = [heroStorage];
                 localStorage.setItem('hero-list', JSON.stringify(heroList));
+                localStorage.setItem('current-hero', heroStorage.name);
 
             }
             else if (JSON.parse(localStorage.getItem('hero-list')).length > maxHeroLength) {
@@ -116,6 +117,7 @@ function searchMarvelHero(searchInput) {
                 heroList.push(heroStorage);
                 console.log(heroList);
                 createPreviousSearchCard();
+                localStorage.setItem('current-hero', heroStorage.name);
             }
             else {
                 let heroList = JSON.parse(localStorage.getItem('hero-list'));
@@ -123,6 +125,7 @@ function searchMarvelHero(searchInput) {
                 localStorage.setItem('hero-list', JSON.stringify(heroList))
                 console.log(heroList);
                 createPreviousSearchCard();
+                localStorage.setItem('current-hero', heroStorage.name);
             }
         }
 
@@ -174,7 +177,7 @@ function handlePrevSearch(event) {
     event.preventDefault();
 
     const heroName = $(this).attr('data-name');
-    
+
 
     if (heroBioEl.text !== '') {
         emptyValues();
@@ -183,35 +186,68 @@ function handlePrevSearch(event) {
     searchMarvelHero(heroName);
     searchInputEl.val('');
 
-
-
-
-    
 }
 
-function createPreviousSearchCard(){
+function createPreviousSearchCard() {
 
     prevHeroListEl.empty();
     let heroList = JSON.parse(localStorage.getItem('hero-list'));
 
     let heroListEl = $('<ul>');
-    for(hero of heroList)
-    {
+    for (hero of heroList) {
         let heroButton = $('<button>')
-            // .attr('class', 'submit')
             .text(hero.name)
             .addClass('box hero-button')
             .attr('data-name', hero.name);
-        heroListEl.append(heroButton);       
+        heroListEl.append(heroButton);
     }
 
     prevHeroListEl.append(heroListEl);
 
 }
 
+function wikiSearch(event){
+    event.preventDefault()
+    let hero = localStorage.getItem('current-hero');
+    console.log(hero);
+    let url = 'https://en.wikipedia.org/w/api.php'
+    const params = {
+        action: 'opensearch',
+        search: hero + ' marvel',
+        limit: maxWikiLength,
+        namespace: '0',
+        format: 'json'
+        
+    };
+    url = url + "?origin=*";
+    Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+    fetch(url)
+        .then(response => {return response.json();})
+        .then(wiki =>{
+            console.log(wiki);
+            createWikiCard(wiki);
+            return;
+        })
 
+   
+}
 
-submitEl.click(handleSearch);
+function handleWikiSearch(event){
+    event.preventDefault();
+    
+    wikiSearch(event);
 
-prevHeroListEl.on('click', '.hero-button', handlePrevSearch);
+    $('#modal').dialog({
+        modal: true
+    });
+    
+    return;
+}
 
+$(document).ready(function () {
+    submitEl.click(handleSearch);
+
+    prevHeroListEl.on('click', '.hero-button', handlePrevSearch);
+
+    $('#wiki-div').on( 'click', '.wiki-btn', handleWikiSearch);
+});
