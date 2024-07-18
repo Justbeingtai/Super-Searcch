@@ -135,6 +135,14 @@ function searchMarvelHero(searchInput) {
 }
 
 
+function handleSearch(event){
+    event.preventDefault();
+    const hero = searchMarvelHero(searchInputEl.val());
+    searchInputEl.text('');
+    createHeroCard(hero);
+
+}}
+
 function toggleMode() {
     const searchBox = document.querySelector('.search-box');
     const toggleButton = document.getElementById('toggle-button');

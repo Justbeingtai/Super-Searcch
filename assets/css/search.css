@@ -1,5 +1,12 @@
 body {
   font-family: 'Arial', sans-serif;
+  background-image: url('/assets/images/Super\ Search\ logo.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 header {
