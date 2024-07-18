@@ -6,30 +6,26 @@ const wikiListEl = $('#wiki-list');
 const submitEl = $('#go');
 const searchInputEl = $('#search-input');
 
+const prevHeroListEl = $('#prev-hero');
+const heroButtonEl = $('#hero-button');
+
 
 const maxWikiLength = 5;
+const maxComicLength = 5;
+const maxHeroLength = 4;
 const publicAPIKey = '7f8b25cc4998b208788b8ed0ee3ecfc3';
 const privateAPIKey = '47c3654c3694747e67461f8b148541ee58a6ba73';
 
-
-
-
-function createHeroCard(hero) {
-
-
-
-   
-
-}
-
 function createWikiCard(wiki) {
+
+
 
     const wikiList = $('<ul>');
 
     const wikiTitles = wiki[1];
     const wikiDescrip = wiki[2];
     const wikiLinks = wiki[3];
-    
+
 
     if (wikiTitles.length > maxWikiLength) {
         wikiTitles.splice(maxWikiLength);
@@ -37,16 +33,16 @@ function createWikiCard(wiki) {
         wikiLinks.splice(maxWikiLength);
     }
 
-    for(i = 0; i<maxWikiLength; i++){
+    for (i = 0; i < maxWikiLength; i++) {
         let title = wikiTitles[i];
         let descrip = wikiDescrip[i];
         let link = wikiLinks[i];
 
         const wikiWrapper = $('<ul>')
-        .append($('<li>').text(title))
-        .append($('<li>').text(descrip))
-        .append($('<a>').attr('href', link)
-                        .text(link));
+            .append($('<li>').text(title))
+            .append($('<li>').text(descrip))
+            .append($('<a>').attr('href', link)
+                .text(link));
 
         wikiList.append(wikiWrapper);
     }
@@ -56,62 +52,84 @@ function createWikiCard(wiki) {
 }
 
 
-function searchMarvelHero (searchInput){
+function searchMarvelHero(searchInput) {
 
-    
+
 
     const timeStamp = this.timeStamp;
-    const hash = $.md5(timeStamp+''+privateAPIKey+''+publicAPIKey);
+    const hash = $.md5(timeStamp + '' + privateAPIKey + '' + publicAPIKey);
 
-    
+
 
     fetch(`https://gateway.marvel.com:443/v1/public/characters?name=${searchInput}&ts=${timeStamp}&apikey=${publicAPIKey}&hash=${hash}`)
-        .then(response=>{
-        
+        .then(response => {
+
             return response.json();
         })
-        .then(data =>{
-            data.data["results"].forEach((hero) =>{
-                
-                
-              
-                    const heroHeader = $('<h2>')
-                    .addClass('')
-                    .text(hero.name);
-                const heroBio = $('<div>')
-                    .addClass('')
-                    .text(hero.description);
-                const heroImg = $('<img>')
-                    .addClass('')
-                    .attr('src', hero.thumbnail["path"]+"."+hero.thumbnail["extension"]);
-                const heroComic = $('<ul>');
-            
-                // const heroComicList = hero.comics.items;
-            
-                // for (let comic of heroComicList) {
-                //     comicListItem = $('<li>')
-                //         .addClass('')
-                //         .text(comic.name);
-            
-                //     heroComic.append(comicListItem);
-                // }
-              
+        .then(data => {
+            hero = data.data["results"][0];
 
-                heroHeaderEl.append(heroHeader);
-                heroBioEl.append(heroBio);
-                heroImgEl.append(heroImg);
-                heroComicEl.append(heroComicList);
+
+
+            const heroHeader = $('<h2>')
+                .addClass('')
+                .text(hero.name);
+            const heroBio = $('<div>')
+                .addClass('')
+                .text(hero.description);
+            const heroImg = $('<img>')
+                .addClass('')
+                .attr('src', hero.thumbnail["path"] + "." + hero.thumbnail["extension"]);
+
+
+            const heroUrls = hero["urls"];
+
+            for (url of heroUrls) {
+                if (url.type === "comiclink") {
+                    let heroUrl = $('<a>').attr('href', '' + url.url).text(url.url);
+                    heroComicEl.append(heroUrl);
+                    console.log(url.url);
                 }
-                // else{
-                //      hero = data.data["results"][0];
-                // }
-          
+            }
 
 
-        )})
-    
+
+            heroHeaderEl.append(heroHeader);
+            heroBioEl.append(heroBio);
+            heroImgEl.append(heroImg);
+
+
+
+            const heroStorage = {
+                id: hero.id,
+                name: hero.name
+            };
+
+            if (localStorage.getItem('hero-list') === null) {
+                let heroList = [heroStorage];
+                localStorage.setItem('hero-list', JSON.stringify(heroList));
+
+            }
+            else if (JSON.parse(localStorage.getItem('hero-list')).length > maxHeroLength) {
+                let heroList = JSON.parse(localStorage.getItem('hero-list'));
+                heroList = heroList.splice(1);
+                heroList.push(heroStorage);
+                console.log(heroList);
+                createPreviousSearchCard();
+            }
+            else {
+                let heroList = JSON.parse(localStorage.getItem('hero-list'));
+                heroList.push(heroStorage);
+                localStorage.setItem('hero-list', JSON.stringify(heroList))
+                console.log(heroList);
+                createPreviousSearchCard();
+            }
+        }
+
+        )
+
     return;
-    
+}
 
 
 function handleSearch(event){
@@ -137,3 +155,71 @@ function toggleMode() {
     }
 
 }
+
+function emptyValues() {
+    heroHeaderEl.text('');
+    heroBioEl.text('');
+    heroImgEl.empty();
+    heroComicEl.empty();
+    wikiListEl.empty();
+
+}
+
+function handleSearch(event) {
+
+    event.preventDefault();
+    if (heroBioEl.text !== '') {
+        emptyValues();
+    }
+
+    searchMarvelHero(searchInputEl.val());
+    searchInputEl.val('');
+
+
+}
+
+function handlePrevSearch(event) {
+    event.preventDefault();
+
+    const heroName = $(this).attr('data-name');
+    
+
+    if (heroBioEl.text !== '') {
+        emptyValues();
+    }
+
+    searchMarvelHero(heroName);
+    searchInputEl.val('');
+
+
+
+
+    
+}
+
+function createPreviousSearchCard(){
+
+    prevHeroListEl.empty();
+    let heroList = JSON.parse(localStorage.getItem('hero-list'));
+
+    let heroListEl = $('<ul>');
+    for(hero of heroList)
+    {
+        let heroButton = $('<button>')
+            // .attr('class', 'submit')
+            .text(hero.name)
+            .addClass('box hero-button')
+            .attr('data-name', hero.name);
+        heroListEl.append(heroButton);       
+    }
+
+    prevHeroListEl.append(heroListEl);
+
+}
+
+
+
+submitEl.click(handleSearch);
+
+prevHeroListEl.on('click', '.hero-button', handlePrevSearch);
+
