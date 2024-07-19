@@ -39,11 +39,11 @@ function createWikiCard(wiki) {
 
         wikiListEl.empty();
         const wikiWrapper = $('<ul>')
+            .addClass('card-content')
             .append($('<li>').text(title))
             .append($('<li>').text(descrip))
-            .append($('<a>').attr('href', link)
-                .text(link));
-
+            .append($('<a>').attr('href', link).text(link));
+            
         wikiList.append(wikiWrapper);
     }
 
