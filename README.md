@@ -1,6 +1,7 @@
 
 # User Story: Super Search
 
+
 ## As a
 **Marvel fan**
 
@@ -45,3 +46,4 @@
 
 - Scalable design for adding new superheroes.
 - Implement search optimization for accuracy and speed.
+

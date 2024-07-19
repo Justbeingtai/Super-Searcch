@@ -10,6 +10,7 @@ const prevHeroListEl = $('#prev-hero');
 const heroButtonEl = $('#hero-button');
 
 
+
 const maxWikiLength = 5;
 const maxComicLength = 5;
 const maxHeroLength = 4;
@@ -17,6 +18,7 @@ const publicAPIKey = '7f8b25cc4998b208788b8ed0ee3ecfc3';
 const privateAPIKey = '47c3654c3694747e67461f8b148541ee58a6ba73';
 
 function createWikiCard(wiki) {
+
 
 
     const wikiList = $('<ul>');
@@ -132,6 +134,56 @@ function searchMarvelHero(searchInput) {
         )
 
     return;
+}
+
+function createWikiCard(wiki) {
+
+    const wikiList = $('<ul>');
+
+    const wikiTitles = wiki[1];
+    const wikiDescrip = wiki[2];
+    const wikiLinks = wiki[3];
+    
+
+    if (wikiTitles.length > maxWikiLength) {
+        wikiTitles.splice(maxWikiLength);
+        wikiDescrip.splice(maxWikiLength);
+        wikiLinks.splice(maxWikiLength);
+    }
+
+    for(i = 0; i<maxWikiLength; i++){
+        let title = wikiTitles[i];
+        let descrip = wikiDescrip[i];
+        let link = wikiLinks[i];
+
+        const wikiWrapper = $('<ul>')
+        .append($('<li>').text(title))
+        .append($('<li>').text(descrip))
+        .append($('<a>').attr('href', link)
+                .text(link));
+
+        wikiList.append(wikiWrapper);
+    }
+
+    wikiListEl.append(wikiList);
+
+}
+var url = "https://en.wikipedia.org/w/api.php"; 
+
+var params = {
+    action: "opensearch",
+    search: "Hampi",
+    limit: "5",
+    namespace: "0",
+    format: "json"
+};
+
+function getApi(url){
+    fetch(url).then(function(response){
+        console.log(response);
+    });
+        
+    
 }
 
 
