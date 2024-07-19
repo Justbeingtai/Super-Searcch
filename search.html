@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Super Search Results</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/search.css" />
+</head>
+<body>
+    <header>
+        Super Search Results
+    </header>
+    <div class="search-box">
+        <div class="box-grid">
+            <div class="box">
+                <div id="hero-img">
+                    <!-- <img src="https://via.placeholder.com/150" alt="Hero Image Placeholder"> -->
+                </div>
+                <div class="search-container">
+                    <form id="search-form" action="" class="search-form">
+                        <input type="text" placeholder="Search..." id="search-input">
+                        <button type="submit" id="go">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="box">
+                <div id="prev-hero">
+                    
+                </div>
+            </div>
+            <div class="box">
+                <h2>Biography</h2>
+               
+                <div class="card">
+                    <div class="card-content">
+                      <div class="content">
+                        <div id="hero-bio">
+                    
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box" id="wiki-div">
+                <button class="box wiki-btn">Wikipedia Links</button>
+                <div id="modal" style="display: none;" class="card">
+                    <div id="wiki-list">
+                        
+                    </div>
+                </div>  
+            </div>
+            <div class="box">
+                <h2>Comic Appearances</h2>
+               
+                <div class="card">
+                    <div class="card-content">
+                      <div class="content">
+                        <div id="hero-comic">
+                    
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery.md5@1.0.2/index.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</html>
