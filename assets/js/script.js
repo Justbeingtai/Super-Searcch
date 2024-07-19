@@ -138,7 +138,7 @@ function handleSearch(event){
     searchInputEl.text('');
     createHeroCard(hero);
 
-}}
+}
 
 function toggleMode() {
     const searchBox = document.querySelector('.search-box');
