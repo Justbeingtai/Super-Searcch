@@ -30,13 +30,8 @@ function createWikiCard(wiki) {
 
    
     // Creating list element
-
-
-
-
-
     const wikiList = $('<ul>');
-
+    
     // Referencing MediaWiki API to grab relevant data
     const wikiTitles = wiki[1];
     const wikiDescrip = wiki[2];
@@ -55,7 +50,7 @@ function createWikiCard(wiki) {
         let descrip = wikiDescrip[i];
         let link = wikiLinks[i];
 
-        wikiListEl.empty();
+        
         const wikiWrapper = $('<ul>')
             .addClass('card-content')
             .append($('<li>').text(title))
@@ -296,6 +291,7 @@ function wikiSearch(event) {
 // function to handle opening modal and searching wiki
 function handleWikiSearch(event) {
     event.preventDefault();
+    wikiListEl.empty();
 
     wikiSearch(event);
 
