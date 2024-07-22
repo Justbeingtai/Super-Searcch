@@ -47,3 +47,18 @@
 - Scalable design for adding new superheroes.
 - Implement search optimization for accuracy and speed.
 
+## Screen Shots
+
+![image](https://github.com/user-attachments/assets/ea8a431a-b33c-46b0-8c49-cf2291edfa0f)
+
+![image](https://github.com/user-attachments/assets/03c047de-4ef8-43ec-92a3-b12550516ed2)
+
+![image](https://github.com/user-attachments/assets/6aa7a243-a3bd-4f86-8ee6-6216a15e9653)
+
+
+![image](https://github.com/user-attachments/assets/118458c4-d265-4943-ab37-c39a0d9098df)
+
+
+## GitHub pages
+
+https://justbeingtai.github.io/Super-Search/
