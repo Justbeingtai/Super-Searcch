@@ -75,6 +75,7 @@ header {
 #hero-img img {
   width: 100%;
   height: auto;
+  margin-bottom: 20px;
 }
 
 .search-container {
@@ -87,6 +88,7 @@ header {
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .search-form input[type="text"] {
